@@ -1,0 +1,30 @@
+# Use a base image with CycloneDDS support
+FROM ubuntu:20.04
+
+# Install necessary tools
+RUN apt-get update && apt-get install -y \
+    wget \
+    cmake \
+    build-essential \
+    git \
+    python3-pip
+
+# Install CycloneDDS
+RUN git clone https://github.com/eclipse-cyclonedds/cyclonedds.git /cyclonedds && \
+    cd /cyclonedds && \
+    mkdir build && cd build && \
+    cmake .. && \
+    make && \
+    make install
+
+# Copy your application files
+COPY dds_subscriber.py /app/
+
+# Set working directory
+WORKDIR /app
+
+# Expose port for dashboard
+EXPOSE 5000
+
+# Run the DDS subscriber
+CMD ["python3", "dds_subscriber.py"]

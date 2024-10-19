@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Router Dashboard</title>
+</head>
+<body>
+    <h1>Router Metrics Dashboard</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Router ID</th>
+                <th>Memory (%)</th>
+                <th>CPU (%)</th>
+                <th>Battery (%)</th>
+                <th>Load</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for router_id, data in router_states.items() %}
+            <tr>
+                <td>{{ router_id }}</td>
+                <td>{{ data['memory'] }}</td>
+                <td>{{ data['cpu'] }}</td>
+                <td>{{ data['battery'] }}</td>
+                <td>{{ data['load'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Router with Minimum Load: {{ min_load_router }}</h2>
+</body>
+</html>

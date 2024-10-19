@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  router1:
+    build:
+      context: .
+      dockerfile: Dockerfile.router
+    container_name: router1
+    environment:
+      - ROUTER_ID=router1
+    networks:
+      - dds-net
+
+  router2:
+    build:
+      context: .
+      dockerfile: Dockerfile.router
+    container_name: router2
+    environment:
+      - ROUTER_ID=router2
+    networks:
+      - dds-net
+
+  router3:
+    build:
+      context: .
+      dockerfile: Dockerfile.router
+    container_name: router3
+    environment:
+      - ROUTER_ID=router3
+    networks:
+      - dds-net
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: dashboard
+    ports:
+      - "5000:5000"
+    networks:
+      - dds-net
+
+networks:
+  dds-net:
+    driver: bridge
